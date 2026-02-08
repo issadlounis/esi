@@ -24,12 +24,13 @@ pipeline {
             }
 
 
-            post {
-
-succes {echo " build sucdcess"}
-failur {echo "build failer"}
-
-
+           post {
+                success {
+                    echo "✅ Build success"
+                }
+                failure {
+                    echo "❌ Build failure"
+                }
             }
         }
 
@@ -40,7 +41,7 @@ failur {echo "build failer"}
             }
         }
 
-        stage('Documentation') {
+  /*      stage('Documentation') {
             steps {
                 // Génère la documentation Javadoc
                 bat 'mvn javadoc:javadoc'
@@ -58,7 +59,7 @@ failur {echo "build failer"}
                 archiveArtifacts artifacts: 'doc.zip', allowEmptyArchive: true
             }
         }
-
+*/
         stage('Publish Report') {
             steps {
                 // Publier un rapport HTML
