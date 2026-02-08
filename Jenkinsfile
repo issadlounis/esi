@@ -25,7 +25,8 @@ pipeline {
                 bat 'mvn package'
 
                 // Archive les fichiers JAR générés
-                archiveArtifacts : 'target/*.jar'
+                 // Archive les fichiers JAR générés
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
             }
         }
 
