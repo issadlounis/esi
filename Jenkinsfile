@@ -10,31 +10,30 @@ pipeline {
             }
         }
 
-
-
-        stage('Test') {
-            steps {
-                
-               junit 'target/surefire-reports/*.xml'
-
-            }
-        }
         stage('Build') {
             steps {
-              
+                // Compiler et packager le projet Maven
                 bat 'mvn package'
 
                 // Archive les fichiers JAR générés
-                 // Archive les fichiers JAR générés
-               archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
             }
         }
 
-       
-        stage('documotation') {
+        stage('Test') {
             steps {
-              bat 'mvnw javadoc:javadoc'
-               archiveArtifacts 'target/site'
+                // Publie les résultats JUnit
+                junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: true
+            }
+        }
+
+        stage('Documentation') {
+            steps {
+                // Génère la documentation Javadoc
+                bat 'mvn javadoc:javadoc'
+
+                // Archive le dossier de documentation
+                archiveArtifacts artifacts: 'target/site/**', allowEmptyArchive: true
             }
         }
 
