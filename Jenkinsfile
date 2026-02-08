@@ -1,20 +1,23 @@
 pipeline {
+    agent any
 
-agent any
-stages {
+    stages {
 
-stage('build') {
-steps {
-bat 'mvn clean package'
- archiveArtifacts  artifact:'target/*.jar'
- 
-}
-stage('test') {
-steps {
+        stage('Build') {
+            steps {
+                // Compile et package le projet Maven
+                bat 'mvn clean package'
+                
+                // Archive les fichiers JAR générés
+                archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
+            }
+        }
 
- junit   :'/target/surfire-reports/*.xml'
- 
-}
-}
-}
+        stage('Test') {
+            steps {
+                // Exécute les tests et publie les résultats JUnit
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+    }
 }
