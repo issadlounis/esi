@@ -21,14 +21,7 @@ pipeline {
                 bat 'mvn package'
                 archiveArtifacts artifacts: 'target/*.jar', allowEmptyArchive: true
             }
-            post {
-                success {
-                    echo "✅ Build success"
-                }
-                failure {
-                    echo "❌ Build failure"
-                }
-            }
+           
         }
 
         stage('Publish Report') {
