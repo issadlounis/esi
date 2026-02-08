@@ -34,6 +34,7 @@ pipeline {
         stage('documotation') {
             steps {
                bat: 'mvnw javadoc :javadoc'
+               archiveArtifacts 'target/site'
             }
         }
 
