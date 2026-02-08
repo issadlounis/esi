@@ -3,6 +3,15 @@ pipeline {
 
     stages {
 
+        stage('Test') {
+            steps {
+                // Exécute les tests et publie les résultats JUnit
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+       
+       
+       
         stage('Build') {
             steps {
                 // Compile et package le projet Maven
@@ -13,11 +22,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                // Exécute les tests et publie les résultats JUnit
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
+       
     }
 }
