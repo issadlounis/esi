@@ -23,7 +23,7 @@ pipeline {
                 bat 'mvn package'
                 
                 // Archive les fichiers JAR générés
-                archiveArtifacts artifacts: 'target/*.jar'
+                archiveArtifacts  'target/*.jar'
             }
         }
 
