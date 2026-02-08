@@ -31,9 +31,17 @@ pipeline {
             steps {
                 // Génère la documentation Javadoc
                 bat 'mvn javadoc:javadoc'
+               // Créer un dossier doc si non existant
+        bat 'if not exist doc mkdir doc'
 
-                // Archive le dossier de documentation
-                archiveArtifacts artifacts: 'target/site/**', allowEmptyArchive: true
+        // Copier le contenu de target/site dans doc
+        bat 'xcopy target\\site doc\\ /E /I /Y'
+
+        // Compresser le dossier doc en ZIP
+        bat 'powershell -Command "Compress-Archive -Path doc\\* -DestinationPath doc.zip -Force"'
+
+        // Archive le fichier ZIP
+        archiveArtifacts artifacts: 'doc.zip', allowEmptyArchive: true
             }
         }
 
