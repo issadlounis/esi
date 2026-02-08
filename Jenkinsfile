@@ -6,6 +6,7 @@ stages {
 stage('build') {
 steps {
 bat 'mvn clean package'
+archiveArtifact  'artifact /*.jar'
 }
 }
 }
